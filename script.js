@@ -2,10 +2,10 @@ let currentIndex = 0; // Índice para el control de carga
 const itemsPerLoad = 6; // Número de imágenes a cargar cada vez
 let images = []; // Array para almacenar las imágenes
 
-// Función para cargar imágenes desde imagen.json
+// Función para cargar imágenes desde images.json
 async function loadImageData() {
     try {
-        const response = await fetch('imagen.json');
+        const response = await fetch('images.json'); // Cambiar a 'images.json'
         
         if (!response.ok) {
             throw new Error('Error en la red: ' + response.statusText);
