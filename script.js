@@ -4,16 +4,18 @@ let images = []; // Array para almacenar las imágenes
 
 // Función para cargar imágenes desde imagen.json
 async function loadImageData() {
-    const response = await fetch('imagen.json');
-    
-    if (!response.ok) {
-        console.error("Error al cargar el archivo JSON:", response.statusText);
-        return; // Salir si hay un error en la carga
-    }
+    try {
+        const response = await fetch('imagen.json');
+        
+        if (!response.ok) {
+            throw new Error('Error en la red: ' + response.statusText);
+        }
 
-    images = await response.json();
-    
-    loadImages(); // Cargar las imágenes después de obtener los datos
+        images = await response.json();
+        loadImages(); // Cargar las imágenes después de obtener los datos
+    } catch (error) {
+        console.error("Error al cargar el archivo JSON:", error.message);
+    }
 }
 
 // Función para cargar imágenes en la galería
