@@ -4,72 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Dinámica</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #1e1e1e;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-right: 20px;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        #search {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 20px;
-        }
-
-        .thumbnail {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        button {
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -87,52 +22,6 @@
         <button id="load-more">Cargar más</button>
     </main>
 
-    <script>
-        let currentIndex = 0; // Índice para el control de carga
-        const itemsPerLoad = 6; // Número de imágenes a cargar cada vez
-        let images = []; // Array para almacenar las imágenes
-
-        // Función para cargar imágenes desde imagen.json
-        async function loadImageData() {
-            const response = await fetch('imagen.json');
-            images = await response.json();
-            loadImages(); // Cargar las imágenes después de obtener los datos
-        }
-
-        // Función para cargar imágenes en la galería
-        function loadImages() {
-            const gallery = document.getElementById('gallery');
-
-            // Cargar las imágenes según el índice actual
-            for (let i = currentIndex; i < currentIndex + itemsPerLoad && i < images.length; i++) {
-                const imgElement = document.createElement('img');
-                imgElement.src = images[i].thumbnail; // Usar thumbnail en lugar de url
-                imgElement.alt = images[i].tags.join(', '); // Usar tags como texto alternativo
-                imgElement.classList.add('thumbnail');
-                gallery.appendChild(imgElement);
-                
-                // Crear un enlace para cada imagen
-                const linkElement = document.createElement('a');
-                linkElement.href = images[i].url; // URL del contenido
-                linkElement.target = "_blank"; // Abrir en nueva pestaña
-                linkElement.appendChild(imgElement);
-                gallery.appendChild(linkElement);
-                
-                // Alternativa sin crear un enlace:
-                // gallery.appendChild(imgElement);
-                // imgElement.addEventListener('click', () => window.open(images[i].url, '_blank'));
-                
-                currentIndex += itemsPerLoad; // Actualizar el índice para la próxima carga
-                if (currentIndex >= images.length) {
-                    document.getElementById('load-more').style.display = 'none'; // Ocultar botón si no hay más imágenes
-                }
-            }
-        }
-
-        document.getElementById('load-more').addEventListener('click', loadImages);
-
-        // Cargar los datos de la imagen al inicio
-        loadImageData();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
